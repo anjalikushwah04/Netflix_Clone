@@ -160,8 +160,9 @@ const WatchPages = () => {
                 {
                     trailors.length === 0 && (
                        <h2 className="text-xl text-center mt-5">
-                        No Trailor available for{" "}😪
+                        No Trailor available for{" "}
                         <span className='font-bold text-red-600'>{content?.title || content?.name}</span>
+                        {" "}😪
 
                        </h2>
                     )

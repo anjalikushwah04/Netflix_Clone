@@ -7,7 +7,7 @@ export async function signup(req,res) {
         const {email,password,username}=req.body;
 
         if(!email || !password || !username){
-            return res.status(400).json({success:false,message:"All Field are required"})
+            return res.status(400).json({success:false,message:"All Field are required signup"});
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -67,12 +67,12 @@ export async function login(req,res) {
 
         const user=await User.findOne({email:email})
         if(!user){
-            return res.status(400).json({success:false,message:"Invalid Credentials"})
+            return res.status(400).json({success:false,message:"User not found"})
         } 
         const isPasswordCorrect=await bcryptjs.compare(password,user.password);
 
         if(!isPasswordCorrect){
-            return res.status(400).json({success:false,message:"Invalid Credentials"})
+            return res.status(400).json({success:false,message:"Password is not correct"})
         }
 
         generateTokenAndSetCookie(user._id,res);
@@ -105,7 +105,6 @@ export async function logout(req,res) {
 
 export async function authCheck(req,res){
     try {
-        console.log("req.user:",req.user)
         res.status(200).json({success: true, user: req.user })
         
     } catch (error) {

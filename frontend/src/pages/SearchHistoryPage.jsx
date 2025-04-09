@@ -46,7 +46,7 @@ const SearchHistoryPage = () => {
             setSearchHistory(searchHistory.filter((item)=>item.id !== entry.id));
 
         }catch(error){
-            console.log(error.message);
+            console.log(error.message)
             toast.error('Failed to delete search history');
 
         }
