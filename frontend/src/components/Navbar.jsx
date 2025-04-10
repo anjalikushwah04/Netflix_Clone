@@ -38,7 +38,7 @@ const Navbar = () => {
                 <Link to={'/search'}>
                     <Search className="size-6 cursor-pointer" />
                 </Link>
-                <img src={user. image} alt="Avatar" className='h-8 rounded cursor-pointer' />
+                <img src={user.image} alt="Avatar" className='h-8 rounded cursor-pointer' />
                 <LogOut className='size-6 cursor-pointer' onClick={logout} />
 
                 <div className='sm:hidden'>
@@ -50,24 +50,22 @@ const Navbar = () => {
             </div>
 
             {/* mobile navbar items */}
-            {isMobileMenuOpen && (
-                <div className="w-full sm:hidden mt-4-z-50 bg-black border rounded border-gray-800">
-                    <Link to={'/'} className='block hover:underline p-2' onClick={toggleMobileMenu}>
-                        Movies
-                    </Link>
-                    <Link to={'/'} className='block hover:underline p-2' onClick={toggleMobileMenu}>
-                        Tv Shows
-                    </Link>
-                    <Link to={'/history'} className='block hover:underline p-2' onClick={toggleMobileMenu}>
-                        Search History
-                    </Link>
-                </div>
 
+                { isMobileMenuOpen && (
+                    <div className="w-full sm:hidden mt-4 z-50 bg-black border rounded border-gray-800">
+                        <Link to={'/'} className='block hover:underline p-2' onClick={toggleMobileMenu}>
+                            Movies
+                        </Link>
+                        <Link to={'/'} className='block hover:underline p-2' onClick={toggleMobileMenu}>
+                            Tv Shows
+                        </Link>
+                        <Link to={'/history'} className='block hover:underline p-2' onClick={toggleMobileMenu}>
+                            Search History
+                        </Link>
+                    </div>
 
+                )}
 
-
-
-            )}
 
 
         </header>
