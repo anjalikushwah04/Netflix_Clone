@@ -57,7 +57,7 @@ const SearchPage = () => {
                 <input type="text"
                 value={searchTerm}
                 onChange={(e)=>setSearchTerm(e.target.value)}
-                placeholder={"search for a " + activeTab}
+                placeholder={"Search for a " + activeTab}
                 className='w-full p-2 rounded bg-gray-800 text-white'
                 />
                 <button className='bg-red-600 hover:bg-red-700 text-white p-2 rounded'>

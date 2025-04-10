@@ -7,10 +7,11 @@ export async function signup(req,res) {
         const {email,password,username}=req.body;
 
         if(!email || !password || !username){
-            return res.status(400).json({success:false,message:"All Field are required signup"});
+            return res.status(400).json({success:false,message:"All Field are required"});
         }
 
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+       const emailRegex = /^[a-zA-Z0-9._%+-]+@(gmail|yahoo|outlook|hotmail|example)\.(com|net|in|org|co|info|biz)$/i;
+
 
         if(!emailRegex.test(email)){
             return res.status(400).json({success:false,message:"Invalid email"})
@@ -43,6 +44,8 @@ export async function signup(req,res) {
 
                 generateTokenAndSetCookie(newUser._id,res);
                 await newUser.save();
+
+                
                  //remove password from the response 
                 res.status(201).json({
                 success:true,
