@@ -8,22 +8,15 @@ import ReactPlayer from 'react-player';
 import { ORIGINAL_IMG_BASE_URL, SMALL_IMG_BASE_URL } from '../../utils/constant';
 import { formatReleaseDate } from '../../utils/dateFunction';
 import WatchPageSkeleton from '../../components/skeletons/WatchPageSkeleton';
-
-
-
 const WatchPages = () => {
     const { id }=useParams();
-
     const [trailors,setTrailors]=useState([]);
     const [currentTrailerIdx,setCurrentTrailerIdx]=useState(0);
     const [loading,setLoading]=useState(true);
     const [content,setContent]=useState({});
     const [similarContent,setSimilarContent]=useState([]);
     const {contentType}=useContentStore();
-
     const sliderRef=useRef(null);
-
-
     useEffect(()=>{
         const getTrailors = async () =>{
             try {
@@ -32,13 +25,9 @@ const WatchPages = () => {
             } catch (error) {
                 if(error.message.includes("404")){
                     setTrailors([]);
-                }
-                
-            }
-        };
+                }}};
         getTrailors();
     },[contentType, id]);
-
     useEffect(()=>{
         const getSimilarContent = async () =>{
             try {
@@ -48,14 +37,9 @@ const WatchPages = () => {
             } catch (error) {
                 if(error.message.includes("404")){
                     setSimilarContent([]);
-                }
-                
-            }
-        };
+                }}};
         getSimilarContent();
     },[contentType, id]);
-
-
     useEffect(()=>{
         const getContentDetails = async () =>{
             try {
@@ -74,28 +58,18 @@ const WatchPages = () => {
         getContentDetails();
     },[contentType, id]);
    const handlePrev=()=>{
-    if(currentTrailerIdx>0) setCurrentTrailerIdx(currentTrailerIdx-1);
-   }
+    if(currentTrailerIdx>0) setCurrentTrailerIdx(currentTrailerIdx-1);}
    const handleNext=()=>{
-    if(currentTrailerIdx<trailors.length -1) setCurrentTrailerIdx( currentTrailerIdx+1 );
-   }
-
-
+    if(currentTrailerIdx<trailors.length -1) setCurrentTrailerIdx( currentTrailerIdx+1 );}
    const scrollLeft=()=>{
     if(sliderRef.current) sliderRef.current.scrollBy({left: -sliderRef.current.offsetWidth, behavior:"smooth"});
    }
    const scrollRight=()=>{
-    if(sliderRef.current) sliderRef.current.scrollBy({left:  sliderRef.current.offsetWidth, behavior:"smooth"});
-   }
-
+    if(sliderRef.current) sliderRef.current.scrollBy({left:  sliderRef.current.offsetWidth, behavior:"smooth"});}
    if(loading) return (
     <div className='min-h-screen bg-black p-10'>
         <WatchPageSkeleton/>
-
-    </div>
-   )
-
-
+    </div> )
    if(!content){
     return(
         <div className="bg-black text-white h-screen">
@@ -104,16 +78,12 @@ const WatchPages = () => {
                 <div className="text-center mx-auto px-4 py-8 h-full mt-40">
                     <h2 className='text-2xl sm:text-5xl font-bold text-balance'>
                         Content not found 😪
-
                     </h2>
-
                 </div>
-
             </div>
         </div>
     )
    }
-
   return (
     <div className="bg-black min-h-screen text-white">
         <div className="mx-auto container px-4 py-8 h-full">
@@ -133,17 +103,10 @@ const WatchPages = () => {
                     <button className={`bg-gray-500/70 hover:bg-gray-500 text-white py-2 px-4 rounded ${
                         currentTrailerIdx ===trailors.length -1 ?"opacity-50 cursor-not-allowed"  :""
                     }`}
-                    disabled={currentTrailerIdx === trailors.length -1}
-                    onClick={handleNext}>
-                        <ChevronRight size={24}
-                        
-                        />
-
+                    disabled={currentTrailerIdx === trailors.length -1} onClick={handleNext}> <ChevronRight size={24} />
                     </button>
-
                 </div>
             )}
-
             <div className="aspectt-video mb-8 p-2 sm:px-10 md:px-32">
                 {
                     trailors.length > 0 && (
@@ -169,8 +132,6 @@ const WatchPages = () => {
                 }
 
             </div>
-
-
             <div className="flex flex-col md:flex-row items-center justify-between gap-20 max-w-6xl mx-auto">
 
                 <div className="mb-4 md:mb-0">
@@ -190,7 +151,6 @@ const WatchPages = () => {
                 <img src={ORIGINAL_IMG_BASE_URL + content?.poster_path} alt="Poster image" 
                 className='max-h-[600px] rounded-md'/>
             </div>
-
             {similarContent.length >0 && (
                 <div className='mt-12 max-w-5xl mx-auto relative'>
                     <h3 className='text-3xl font-bold mb-4'>
@@ -211,7 +171,6 @@ const WatchPages = () => {
                     
                     })
                         }
-
                         <ChevronLeft
                         className='absolute top-1/2 -translate-y-1/2 left-2 w-8 h-8 opacity-0
                         group-hover:opacity-100 transition-all duration-300 cursor-pointer bg-red-600
@@ -223,20 +182,10 @@ const WatchPages = () => {
                         group-hover:opacity-100 transition-all duration-300 cursor-pointer bg-red-600
                         text-white rounded-full'
                         onClick={scrollRight}/>
-
-
-
-
                     </div>
                 </div>
             )}
-
-
-
-
-
         </div>
-
     </div>
   )
 }

@@ -8,35 +8,26 @@ import { ORIGINAL_IMG_BASE_URL } from '../../utils/constant';
 import { Link } from 'react-router-dom';
 
 const SearchPage = () => {
-
     const [activeTab,setActiveTab]=useState("movie");
     const [searchTerm,setSearchTerm]=useState("");
     const [results,setResults]=useState([]);
-
     const handleTabClick=(tab)=>{
         setActiveTab(tab);
         tab === "movie"? setContentType("movie"): setContentType("tv");
         setResults([]);
     }
-
     const {setContentType}=useContentStore();
-
-
     const handleSearch=async (e)=>{
         e.preventDefault();
         try {
             const res=await axios.get(`api/v1/search/${activeTab}/${searchTerm}`);
             setResults(res.data.content)
-            
         } catch (error) {
             if(error.response.status ===404){
                 toast.error("Nothing found, make sure you are searching under the right category")
             }else{
                 toast.error("An Error occured, please try again later");
-            }   
-        }
-    }
-
+            }}}
   return (
     <div className="bg-black min-h-screen text-white">
         <Navbar/>
@@ -52,7 +43,6 @@ const SearchPage = () => {
                     Persons
                 </button>
             </div>
-
             <form className='flex gap-2 items-stretch mb-8 max-w-2xl mx-auto' onSubmit={handleSearch}>
                 <input type="text"
                 value={searchTerm}
@@ -62,12 +52,8 @@ const SearchPage = () => {
                 />
                 <button className='bg-red-600 hover:bg-red-700 text-white p-2 rounded'>
                     <Search className='size-6'/>
-
                 </button>
-
             </form>
-
-
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {results.map((result)=>{
                     if(!result.poster_path && !result.profile_path) return null;
@@ -79,29 +65,16 @@ const SearchPage = () => {
                                 <h2 className='mt-2 text-xl font-bold'>{result.name}</h2>
                                 </Link>
                             ):(
-                                <Link to={"/watch/" + result.id} 
-                                onClick={()=>{
-                                    setContentType(activeTab);
-                                }}>
+                                <Link to={"/watch/" + result.id}  onClick={()=>{  setContentType(activeTab); }}>
                                      <img src={ORIGINAL_IMG_BASE_URL + result.poster_path} alt={result.title || result.name} className='w-full h-auto rounded'/>
                                      <h2 className='mt-2 text-xl font-bold'>{result.title || result.name}</h2>
-
-                                </Link>
+                               </Link>
                             )}
                         </div>
                     )
                 })}
-
             </div>
-
-
-
-
-
-
-
         </div>
-
     </div>
   )
 }

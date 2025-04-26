@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
-const userSchema =mongoose.Schema({
+const userSchema=mongoose.Schema({
     username:{
         type:String,
         required:true,
@@ -22,6 +23,14 @@ const userSchema =mongoose.Schema({
     searchHistory:{
         type:Array,
         default:[]
+    },
+    resetPasswordToken: {
+        type: String,
+    },
+    resetPasswordExpires: {
+        type: Date,
     }
-})
-export const User =mongoose.model('User',userSchema);
+
+},{ timestamps: true });
+
+export const User=mongoose.model('User',userSchema);
